@@ -98,7 +98,7 @@ fig.savefig('a.png',dpi=300)
 ```
 
 
-![png](reports/output_14_0.png)
+![png](reports/figures/output_14_0.png)
 
 
 Hasan Minhaj once said in his episode about hiphop on [Patriot Act](https://youtu.be/MEZV6EE8JMA?t=296) that shorter tracks are streamed a lot more. I wanted to test this statement. So we'll use the popularity measure and compare it to the track length. The track length is in milliseconds, however,and hence are converted to minutes by dividing by 1000 and then by 60.
@@ -297,7 +297,7 @@ plt.xlabel('Track Duration (minutes)')
 
 
 
-![png](reports/output_21_1.png)
+![png](reports/figures/output_21_1.png)
 
 
 There are multiple outliers, which skews the plot a lot. We will hide these outliers and plot them again. Since this plot was generated using Seaborn, we set the ```showfliers``` to ```False```.
@@ -320,7 +320,7 @@ plt.xlabel('Track Duration (minutes)')
 
 
 
-![png](reports/output_23_1.png)
+![png](reports/figures/output_23_1.png)
 
 
 It is necessary to drop the outliers to prevent long tails from showing up in the plot, and thus stretching it. We will calculate the Z-Scores for the song durations, drop songs with Z-Scores more than 2 positive standard deviations away from the mean.
@@ -351,7 +351,7 @@ sctr = sb.scatterplot(x=popdur['duration_min'],y=popdur['popularity'],color='bla
 ```
 
 
-![png](reports/output_30_0.png)
+![png](reports/figures/output_30_0.png)
 
 
 Well this data is too messy and crowded to make sense of. We need to find a better way to understand it. Interestingly though, we do notice a trend here; that songs closer to 3 minutes are often the most popular. <br>
@@ -507,7 +507,7 @@ plt.ylabel('Popularity')
 
 
 
-![png](reports/output_34_1.png)
+![png](reports/figures/output_34_1.png)
 
 
 Having tried out the waffle chart to unsatisfactory results, I looked at a much simpler way of visualizing the most popular genre in different song length categories. We add the z-score column to the original `tracks` dataframe so that we can drop the outliers. Then we add another column for the song's `length_category` to the dataframe.
@@ -556,7 +556,7 @@ title = plt.title('Most Popular Genres of Short Songs')
 ```
 
 
-![png](reports/output_42_0.png)
+![png](reports/figures/output_42_0.png)
 
 
 ## Medium Songs
@@ -568,7 +568,7 @@ title = plt.title('Most Popular Genres of Medium Songs')
 ```
 
 
-![png](reports/output_44_0.png)
+![png](reports/figures/output_44_0.png)
 
 
 ## Longish Songs
@@ -580,7 +580,7 @@ title = plt.title('Most Popular Genres of Longish Songs')
 ```
 
 
-![png](reports/output_46_0.png)
+![png](reports/figures/output_46_0.png)
 
 
 ## Long Songs
@@ -592,7 +592,7 @@ title = plt.title('Most Popular Genres of Medium Songs')
 ```
 
 
-![png](reports/output_48_0.png)
+![png](reports/figures/output_48_0.png)
 
 
 ## Conclusion

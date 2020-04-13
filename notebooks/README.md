@@ -1,0 +1,1 @@
+Note: To get the README found in main directory, open the notebook and then download it as a markdown file after all the cells and results are generated. The notebook and associated figures will be downloaded as a zip folder, like in Spotifynsights.zip. The zip folder's name is the same as the notebook name.
