@@ -15,73 +15,43 @@ import numpy as np
 
 
 ```python
-    
-tracks = pd.read_csv('SpotifyFeatures.csv')
+tracks = pd.read_csv('data/SpotifyFeatures.csv')
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    FileNotFoundError                         Traceback (most recent call last)
-
-    <ipython-input-2-2bdb7d7534c6> in <module>
-    ----> 1 tracks = pd.read_csv('SpotifyFeatures.csv')
-          2 
-    
-
-    e:\installations\miniconda3\lib\site-packages\pandas\io\parsers.py in parser_f(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)
-        683         )
-        684 
-    --> 685         return _read(filepath_or_buffer, kwds)
-        686 
-        687     parser_f.__name__ = name
-    
-
-    e:\installations\miniconda3\lib\site-packages\pandas\io\parsers.py in _read(filepath_or_buffer, kwds)
-        455 
-        456     # Create the parser.
-    --> 457     parser = TextFileReader(fp_or_buf, **kwds)
-        458 
-        459     if chunksize or iterator:
-    
-
-    e:\installations\miniconda3\lib\site-packages\pandas\io\parsers.py in __init__(self, f, engine, **kwds)
-        893             self.options["has_index_names"] = kwds["has_index_names"]
-        894 
-    --> 895         self._make_engine(self.engine)
-        896 
-        897     def close(self):
-    
-
-    e:\installations\miniconda3\lib\site-packages\pandas\io\parsers.py in _make_engine(self, engine)
-       1133     def _make_engine(self, engine="c"):
-       1134         if engine == "c":
-    -> 1135             self._engine = CParserWrapper(self.f, **self.options)
-       1136         else:
-       1137             if engine == "python":
-    
-
-    e:\installations\miniconda3\lib\site-packages\pandas\io\parsers.py in __init__(self, src, **kwds)
-       1915         kwds["usecols"] = self.usecols
-       1916 
-    -> 1917         self._reader = parsers.TextReader(src, **kwds)
-       1918         self.unnamed_cols = self._reader.unnamed_cols
-       1919 
-    
-
-    pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader.__cinit__()
-    
-
-    pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader._setup_parser_source()
-    
-
-    FileNotFoundError: [Errno 2] File b'SpotifyFeatures.csv' does not exist: b'SpotifyFeatures.csv'
-
 
 
 ```python
-tracks['genre'].value_counts()
+print(tracks['genre'].value_counts())
 ```
+
+    Comedy              9681
+    Soundtrack          9646
+    Indie               9543
+    Jazz                9441
+    Pop                 9386
+    Electronic          9377
+    Children’s Music    9353
+    Folk                9299
+    Hip-Hop             9295
+    Rock                9272
+    Alternative         9263
+    Classical           9256
+    Rap                 9232
+    World               9096
+    Soul                9089
+    Blues               9023
+    R&B                 8992
+    Anime               8936
+    Reggaeton           8927
+    Ska                 8874
+    Reggae              8771
+    Dance               8701
+    Country             8664
+    Opera               8280
+    Movie               7806
+    Children's Music    5403
+    A Capella            119
+    Name: genre, dtype: int64
+    
 
 Here, it has to be noted that there's two records of Children's Music available, so we keep the larger one since it's inclusive of all the records. 
 
@@ -127,12 +97,169 @@ for a in pops:
 fig.savefig('a.png',dpi=300)
 ```
 
+
+![png](reports/output_14_0.png)
+
+
 Hasan Minhaj once said in his episode about hiphop on [Patriot Act](https://youtu.be/MEZV6EE8JMA?t=296) that shorter tracks are streamed a lot more. I wanted to test this statement. So we'll use the popularity measure and compare it to the track length. The track length is in milliseconds, however,and hence are converted to minutes by dividing by 1000 and then by 60.
 
 
 ```python
 tracks.head()
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>genre</th>
+      <th>artist_name</th>
+      <th>track_name</th>
+      <th>track_id</th>
+      <th>popularity</th>
+      <th>acousticness</th>
+      <th>danceability</th>
+      <th>duration_ms</th>
+      <th>energy</th>
+      <th>instrumentalness</th>
+      <th>key</th>
+      <th>liveness</th>
+      <th>loudness</th>
+      <th>mode</th>
+      <th>speechiness</th>
+      <th>tempo</th>
+      <th>time_signature</th>
+      <th>valence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Movie</td>
+      <td>Henri Salvador</td>
+      <td>C'est beau de faire un Show</td>
+      <td>0BRjO6ga9RKCKjfDqeFgWV</td>
+      <td>0</td>
+      <td>0.611</td>
+      <td>0.389</td>
+      <td>99373</td>
+      <td>0.910</td>
+      <td>0.000</td>
+      <td>C#</td>
+      <td>0.3460</td>
+      <td>-1.828</td>
+      <td>Major</td>
+      <td>0.0525</td>
+      <td>166.969</td>
+      <td>4/4</td>
+      <td>0.814</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Movie</td>
+      <td>Martin &amp; les fées</td>
+      <td>Perdu d'avance (par Gad Elmaleh)</td>
+      <td>0BjC1NfoEOOusryehmNudP</td>
+      <td>1</td>
+      <td>0.246</td>
+      <td>0.590</td>
+      <td>137373</td>
+      <td>0.737</td>
+      <td>0.000</td>
+      <td>F#</td>
+      <td>0.1510</td>
+      <td>-5.559</td>
+      <td>Minor</td>
+      <td>0.0868</td>
+      <td>174.003</td>
+      <td>4/4</td>
+      <td>0.816</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Movie</td>
+      <td>Joseph Williams</td>
+      <td>Don't Let Me Be Lonely Tonight</td>
+      <td>0CoSDzoNIKCRs124s9uTVy</td>
+      <td>3</td>
+      <td>0.952</td>
+      <td>0.663</td>
+      <td>170267</td>
+      <td>0.131</td>
+      <td>0.000</td>
+      <td>C</td>
+      <td>0.1030</td>
+      <td>-13.879</td>
+      <td>Minor</td>
+      <td>0.0362</td>
+      <td>99.488</td>
+      <td>5/4</td>
+      <td>0.368</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Movie</td>
+      <td>Henri Salvador</td>
+      <td>Dis-moi Monsieur Gordon Cooper</td>
+      <td>0Gc6TVm52BwZD07Ki6tIvf</td>
+      <td>0</td>
+      <td>0.703</td>
+      <td>0.240</td>
+      <td>152427</td>
+      <td>0.326</td>
+      <td>0.000</td>
+      <td>C#</td>
+      <td>0.0985</td>
+      <td>-12.178</td>
+      <td>Major</td>
+      <td>0.0395</td>
+      <td>171.758</td>
+      <td>4/4</td>
+      <td>0.227</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Movie</td>
+      <td>Fabien Nataf</td>
+      <td>Ouverture</td>
+      <td>0IuslXpMROHdEPvSl1fTQK</td>
+      <td>4</td>
+      <td>0.950</td>
+      <td>0.331</td>
+      <td>82625</td>
+      <td>0.225</td>
+      <td>0.123</td>
+      <td>F</td>
+      <td>0.2020</td>
+      <td>-21.150</td>
+      <td>Major</td>
+      <td>0.0456</td>
+      <td>140.576</td>
+      <td>4/4</td>
+      <td>0.390</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 
 ```python
@@ -162,6 +289,17 @@ plt.title('Box Plot of Track Lengths')
 plt.xlabel('Track Duration (minutes)')
 ```
 
+
+
+
+    Text(0.5, 0, 'Track Duration (minutes)')
+
+
+
+
+![png](reports/output_21_1.png)
+
+
 There are multiple outliers, which skews the plot a lot. We will hide these outliers and plot them again. Since this plot was generated using Seaborn, we set the ```showfliers``` to ```False```.
 
 
@@ -173,6 +311,17 @@ bxplt = sb.boxplot(popdur['duration_min'], showfliers=False, color='orange')
 plt.title('Box Plot of Track Lengths')
 plt.xlabel('Track Duration (minutes)')
 ```
+
+
+
+
+    Text(0.5, 0, 'Track Duration (minutes)')
+
+
+
+
+![png](reports/output_23_1.png)
+
 
 It is necessary to drop the outliers to prevent long tails from showing up in the plot, and thus stretching it. We will calculate the Z-Scores for the song durations, drop songs with Z-Scores more than 2 positive standard deviations away from the mean.
 
@@ -201,6 +350,10 @@ fig2 = plt.figure(2,figsize=(16,9))
 sctr = sb.scatterplot(x=popdur['duration_min'],y=popdur['popularity'],color='black')
 ```
 
+
+![png](reports/output_30_0.png)
+
+
 Well this data is too messy and crowded to make sense of. We need to find a better way to understand it. Interestingly though, we do notice a trend here; that songs closer to 3 minutes are often the most popular. <br>
 
 We will use the previously-used box plots again. We noticed that the songs close to 3 minutes seem to be most popular, so we will classify songs into 4 categories, `Short`,for songs lower than 2 min. `Med`, for songs between 2 and 4 minutes, `Longish`, for songs between 4 to 6 minutes, and `Long` for songs longer than 6 minutes. This category variable column is added to the `popdur` dataframe.
@@ -226,6 +379,118 @@ popdur
 ```
 
 
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>popularity</th>
+      <th>duration_min</th>
+      <th>z_score</th>
+      <th>length_category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1.656217</td>
+      <td>-1.160210</td>
+      <td>Short</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2.289550</td>
+      <td>-0.840605</td>
+      <td>Med</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2.837783</td>
+      <td>-0.563946</td>
+      <td>Med</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>2.540450</td>
+      <td>-0.713992</td>
+      <td>Med</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>1.377083</td>
+      <td>-1.301072</td>
+      <td>Short</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>232720</th>
+      <td>39</td>
+      <td>5.437333</td>
+      <td>0.747888</td>
+      <td>Longish</td>
+    </tr>
+    <tr>
+      <th>232721</th>
+      <td>38</td>
+      <td>4.707450</td>
+      <td>0.379561</td>
+      <td>Longish</td>
+    </tr>
+    <tr>
+      <th>232722</th>
+      <td>47</td>
+      <td>2.782667</td>
+      <td>-0.591760</td>
+      <td>Med</td>
+    </tr>
+    <tr>
+      <th>232723</th>
+      <td>44</td>
+      <td>3.707367</td>
+      <td>-0.125120</td>
+      <td>Med</td>
+    </tr>
+    <tr>
+      <th>232724</th>
+      <td>35</td>
+      <td>5.383783</td>
+      <td>0.720865</td>
+      <td>Longish</td>
+    </tr>
+  </tbody>
+</table>
+<p>221620 rows × 4 columns</p>
+</div>
+
+
+
+
 ```python
 fig = plt.figure(figsize=(16,9))
 bxplt = sb.boxplot(y=popdur['popularity'],x=popdur['length_category'],palette=sb.color_palette('pastel'))
@@ -233,6 +498,17 @@ plt.title('Popularity of songs in different length categories')
 plt.xlabel('Length Category')
 plt.ylabel('Popularity')
 ```
+
+
+
+
+    Text(0, 0.5, 'Popularity')
+
+
+
+
+![png](reports/output_34_1.png)
+
 
 Having tried out the waffle chart to unsatisfactory results, I looked at a much simpler way of visualizing the most popular genre in different song length categories. We add the z-score column to the original `tracks` dataframe so that we can drop the outliers. Then we add another column for the song's `length_category` to the dataframe.
 
@@ -279,6 +555,10 @@ plot_hor_bars(short,'genre','Reds_r')
 title = plt.title('Most Popular Genres of Short Songs')
 ```
 
+
+![png](reports/output_42_0.png)
+
+
 ## Medium Songs
 
 
@@ -286,6 +566,10 @@ title = plt.title('Most Popular Genres of Short Songs')
 plot_hor_bars(medium,'genre','Greens_r')
 title = plt.title('Most Popular Genres of Medium Songs')
 ```
+
+
+![png](reports/output_44_0.png)
+
 
 ## Longish Songs
 
@@ -295,6 +579,10 @@ plot_hor_bars(longish,'genre','Blues_r')
 title = plt.title('Most Popular Genres of Longish Songs')
 ```
 
+
+![png](reports/output_46_0.png)
+
+
 ## Long Songs
 
 
@@ -302,6 +590,10 @@ title = plt.title('Most Popular Genres of Longish Songs')
 plot_hor_bars(long,'genre','icefire_r')
 title = plt.title('Most Popular Genres of Medium Songs')
 ```
+
+
+![png](reports/output_48_0.png)
+
 
 ## Conclusion
 
